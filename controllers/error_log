@@ -1,0 +1,150 @@
+[26-Jan-2026 15:27:18 UTC] DEBUG CONFIG - email_pay recibido: 'alquilav2025@gmail.com'
+[26-Jan-2026 15:27:18 UTC] DEBUG CONFIG - payu_habilitado: 1
+[26-Jan-2026 15:27:18 UTC] DEBUG CONFIG - email_pay escapado: 'alquilav2025@gmail.com'
+[26-Jan-2026 15:27:18 UTC] DEBUG CONFIG - SQL Query: UPDATE config_general SET 
+                km = 10, 
+                global_tarifa = 0, 
+                porcentaje = 10, 
+                valor_minimo = 1000, 
+                max_intentos_cancelacion = 5, 
+                multa_cliente = 10000, 
+                multa_domiciliario = 10000, 
+                payu_habilitado = 1, 
+                payu_cuenta = '', 
+                payu_checkout_url = 'https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/', 
+                payu_merchant_id = '5080290', 
+                payu_account_id = '512321', 
+                payu_response_url = 'https://pay.alquilav.com/respuesta.php', 
+                payu_confirmation_url = 'https://pay.alquilav.com/confirmacion.php', 
+                email_pay = 'alquilav2025@gmail.com', 
+                bancolombia_habilitado = 1, 
+                bancolombia_cuenta = '', 
+                nequi_habilitado = 1, 
+                nequi_cuenta = '3133333', 
+                daviplata_habilitado = 1, 
+                daviplata_cuenta = '0', 
+                whatsapp_contacto = '3217889131', 
+                correo_contacto = 'alquilav2025@gmail.com', 
+                banner = '' 
+                WHERE id = 1
+[26-Jan-2026 15:27:18 UTC] DEBUG CONFIG - UPDATE exitoso. Filas afectadas: 1
+[26-Jan-2026 15:50:53 UTC] DEBUG CONFIG - email_pay recibido: 'alquilav2025@gmail.com'
+[26-Jan-2026 15:50:53 UTC] DEBUG CONFIG - payu_habilitado: 1
+[26-Jan-2026 15:50:53 UTC] DEBUG CONFIG - email_pay escapado: 'alquilav2025@gmail.com'
+[26-Jan-2026 15:50:53 UTC] DEBUG CONFIG - SQL Query: UPDATE config_general SET 
+                km = 10, 
+                global_tarifa = 0, 
+                porcentaje = 10, 
+                valor_minimo = 1000, 
+                max_intentos_cancelacion = 5, 
+                multa_cliente = 10000, 
+                multa_domiciliario = 10000, 
+                payu_habilitado = 1, 
+                payu_cuenta = '', 
+                payu_checkout_url = 'https://checkout.payulatam.com/ppp-web-gateway-payu/', 
+                payu_merchant_id = '5080290', 
+                payu_account_id = '512321', 
+                payu_response_url = 'https://pay.alquilav.com/respuesta.php', 
+                payu_confirmation_url = 'https://pay.alquilav.com/confirmacion.php', 
+                email_pay = 'alquilav2025@gmail.com', 
+                bancolombia_habilitado = 1, 
+                bancolombia_cuenta = '', 
+                nequi_habilitado = 1, 
+                nequi_cuenta = '3133333', 
+                daviplata_habilitado = 1, 
+                daviplata_cuenta = '0', 
+                whatsapp_contacto = '3217889131', 
+                correo_contacto = 'alquilav2025@gmail.com', 
+                banner = '' 
+                WHERE id = 1
+[26-Jan-2026 15:50:53 UTC] DEBUG CONFIG - UPDATE exitoso. Filas afectadas: 1
+[26-Jan-2026 15:56:11 UTC] DEBUG CONFIG - email_pay recibido: 'alquilav2025@gmail.com'
+[26-Jan-2026 15:56:11 UTC] DEBUG CONFIG - payu_habilitado: 1
+[26-Jan-2026 15:56:11 UTC] DEBUG CONFIG - email_pay escapado: 'alquilav2025@gmail.com'
+[26-Jan-2026 15:56:11 UTC] DEBUG CONFIG - SQL Query: UPDATE config_general SET 
+                km = 10, 
+                global_tarifa = 0, 
+                porcentaje = 10, 
+                valor_minimo = 1000, 
+                max_intentos_cancelacion = 5, 
+                multa_cliente = 10000, 
+                multa_domiciliario = 10000, 
+                payu_habilitado = 1, 
+                payu_cuenta = '', 
+                payu_checkout_url = 'https://checkout.payulatam.com/ppp-web-gateway-payu/', 
+                payu_merchant_id = '5080290', 
+                payu_account_id = '512321', 
+                payu_response_url = 'https://pay.alquilav.com/respuesta.php', 
+                payu_confirmation_url = 'https://pay.alquilav.com/confirmacion.php', 
+                email_pay = 'alquilav2025@gmail.com', 
+                bancolombia_habilitado = 1, 
+                bancolombia_cuenta = '', 
+                nequi_habilitado = 1, 
+                nequi_cuenta = '3133333', 
+                daviplata_habilitado = 1, 
+                daviplata_cuenta = '0', 
+                whatsapp_contacto = '3217889131', 
+                correo_contacto = 'alquilav2025@gmail.com', 
+                banner = '' 
+                WHERE id = 1
+[26-Jan-2026 15:56:11 UTC] DEBUG CONFIG - UPDATE exitoso. Filas afectadas: 0
+[26-Jan-2026 16:13:42 UTC] DEBUG CONFIG - email_pay recibido: 'alquilav2025@gmail.com'
+[26-Jan-2026 16:13:42 UTC] DEBUG CONFIG - payu_habilitado: 1
+[26-Jan-2026 16:13:42 UTC] DEBUG CONFIG - email_pay escapado: 'alquilav2025@gmail.com'
+[26-Jan-2026 16:13:42 UTC] DEBUG CONFIG - SQL Query: UPDATE config_general SET 
+                km = 10, 
+                global_tarifa = 0, 
+                porcentaje = 10, 
+                valor_minimo = 1000, 
+                max_intentos_cancelacion = 5, 
+                multa_cliente = 10000, 
+                multa_domiciliario = 10000, 
+                payu_habilitado = 1, 
+                payu_cuenta = '', 
+                payu_checkout_url = 'https://checkout.payulatam.com/ppp-web-gateway-payu/', 
+                payu_merchant_id = '1026903', 
+                payu_account_id = '1036131', 
+                payu_response_url = 'https://pay.alquilav.com/respuesta.php', 
+                payu_confirmation_url = 'https://pay.alquilav.com/confirmacion.php', 
+                email_pay = 'alquilav2025@gmail.com', 
+                bancolombia_habilitado = 1, 
+                bancolombia_cuenta = '', 
+                nequi_habilitado = 1, 
+                nequi_cuenta = '3133333', 
+                daviplata_habilitado = 1, 
+                daviplata_cuenta = '0', 
+                whatsapp_contacto = '3217889131', 
+                correo_contacto = 'alquilav2025@gmail.com', 
+                banner = '' 
+                WHERE id = 1
+[26-Jan-2026 16:13:42 UTC] DEBUG CONFIG - UPDATE exitoso. Filas afectadas: 1
+[28-Jan-2026 20:13:34 UTC] DEBUG CONFIG - email_pay recibido: 'alquilav2025@gmail.com'
+[28-Jan-2026 20:13:34 UTC] DEBUG CONFIG - payu_habilitado: 1
+[28-Jan-2026 20:13:34 UTC] DEBUG CONFIG - email_pay escapado: 'alquilav2025@gmail.com'
+[28-Jan-2026 20:13:34 UTC] DEBUG CONFIG - SQL Query: UPDATE config_general SET 
+                km = 10, 
+                global_tarifa = 0, 
+                porcentaje = 10, 
+                valor_minimo = 10000, 
+                max_intentos_cancelacion = 5, 
+                multa_cliente = 10000, 
+                multa_domiciliario = 10000, 
+                payu_habilitado = 1, 
+                payu_cuenta = '', 
+                payu_checkout_url = 'https://checkout.payulatam.com/ppp-web-gateway-payu/', 
+                payu_merchant_id = '1026903', 
+                payu_account_id = '1036131', 
+                payu_response_url = 'https://pay.alquilav.com/respuesta.php', 
+                payu_confirmation_url = 'https://pay.alquilav.com/confirmacion.php', 
+                email_pay = 'alquilav2025@gmail.com', 
+                bancolombia_habilitado = 1, 
+                bancolombia_cuenta = '', 
+                nequi_habilitado = 1, 
+                nequi_cuenta = '3133333', 
+                daviplata_habilitado = 1, 
+                daviplata_cuenta = '0', 
+                whatsapp_contacto = '3217889131', 
+                correo_contacto = 'alquilav2025@gmail.com', 
+                banner = '' 
+                WHERE id = 1
+[28-Jan-2026 20:13:34 UTC] DEBUG CONFIG - UPDATE exitoso. Filas afectadas: 1
