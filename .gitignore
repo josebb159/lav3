@@ -1,0 +1,17 @@
+# Archivos grandes
+*.zip
+well-known.zip
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos temporales
+*.tmp
+*.log
