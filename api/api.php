@@ -1271,8 +1271,8 @@ $mysqli->set_charset("utf8mb4");
         return;
     }
 
-    // 1. Obtener información del domiciliario (incluyendo negocio)
-    $sqlDomiciliario = "SELECT conductor_negocio, nombre, apellido FROM usuarios WHERE id = $user_id LIMIT 1";
+    // 1. Obtener información del domiciliario (incluyendo negocio, estado y monedero)
+    $sqlDomiciliario = "SELECT conductor_negocio, nombre, apellido, activo, monedero FROM usuarios WHERE id = $user_id LIMIT 1";
     $resDomiciliario = $mysqli->query($sqlDomiciliario);
     
     if(!$resDomiciliario || $resDomiciliario->num_rows === 0){
@@ -1283,6 +1283,35 @@ $mysqli->set_charset("utf8mb4");
     $domiciliario = $resDomiciliario->fetch_assoc();
     $negocio_domiciliario = $domiciliario['conductor_negocio'];
     $nombre_domiciliario = $domiciliario['nombre'] . ' ' . $domiciliario['apellido'];
+    $activo = intval($domiciliario['activo']);
+    $monedero = floatval($domiciliario['monedero']);
+    
+    // Validar que el domiciliario esté activo
+    if ($activo !== 1) {
+        echo json_encode(['status' => 'error', 'message' => 'Tu cuenta no está activa. Contacta al administrador.']);
+        return;
+    }
+    
+    // Validar que el domiciliario tenga saldo suficiente
+    global $valor_minimo;
+    if ($monedero < $valor_minimo) {
+        echo json_encode(['status' => 'error', 'message' => 'Saldo insuficiente en tu monedero. Recarga para continuar.']);
+        return;
+    }
+    
+    // Validar que el negocio existe o es NULL
+    if ($negocio_domiciliario !== null && $negocio_domiciliario != 0) {
+        $sqlCheckNegocio = "SELECT id FROM negocios WHERE id = $negocio_domiciliario LIMIT 1";
+        $resCheckNegocio = $mysqli->query($sqlCheckNegocio);
+        
+        if(!$resCheckNegocio || $resCheckNegocio->num_rows === 0){
+            // Si el negocio no existe, establecer como NULL
+            $negocio_domiciliario = null;
+        }
+    } else {
+        // Si es 0 o NULL, establecer como NULL
+        $negocio_domiciliario = null;
+    }
 
     // 2. Verificar el alquiler
     $sqlAlquiler = "SELECT * FROM alquileres WHERE id = $id_alquiler AND status_servicio = 1 LIMIT 1";
@@ -1313,7 +1342,14 @@ $mysqli->set_charset("utf8mb4");
             // Update Alquiler
 
             $stmt = $mysqli->prepare("UPDATE alquileres SET conductor_id = ?, lavadora_id = ?, fecha_aceptado = ?, status_servicio = 6, negocio_id = ? WHERE id = ?");
-            $stmt->bind_param("iisii", $user_id, $idLavadoraAsignar, $fecha_actual, $negocio_domiciliario, $id_alquiler);
+            
+            // Si negocio_domiciliario es NULL, bind_param lo manejará correctamente
+            if ($negocio_domiciliario === null) {
+                $null_value = null;
+                $stmt->bind_param("iisii", $user_id, $idLavadoraAsignar, $fecha_actual, $null_value, $id_alquiler);
+            } else {
+                $stmt->bind_param("iisii", $user_id, $idLavadoraAsignar, $fecha_actual, $negocio_domiciliario, $id_alquiler);
+            }
             
             
             if ($stmt->execute()) {
@@ -1772,12 +1808,33 @@ $mysqli->set_charset("utf8mb4");
         if ($mysqli->query($query)) {
             $newRentalId = $mysqli->insert_id;
             
-            // Notificar a TODOS los conductores activos (sin filtrar por negocio)
-            $sqlDrivers = "SELECT fcm FROM usuarios WHERE rol_id = 3 AND fcm IS NOT NULL AND fcm != '' AND activo = 1";
+            // Obtener valor_minimo de la configuración
+            global $valor_minimo;
+            
+            // Notificar SOLO a conductores que cumplan TODAS estas condiciones:
+            // 1. rol_id = 3 (domiciliarios)
+            // 2. activo = 1 (cuenta activa)
+            // 3. fcm válido (token de notificación)
+            // 4. monedero >= valor_minimo (saldo suficiente)
+            // 5. Tengan al menos UNA lavadora disponible del tipo solicitado
+            $sqlDrivers = "SELECT DISTINCT usuarios.fcm 
+                          FROM usuarios 
+                          INNER JOIN lavadoras ON lavadoras.id_domiciliario = usuarios.id
+                          WHERE usuarios.rol_id = 3 
+                          AND usuarios.fcm IS NOT NULL 
+                          AND usuarios.fcm != '' 
+                          AND usuarios.activo = 1 
+                          AND usuarios.monedero >= $valor_minimo
+                          AND lavadoras.status = 'disponible'
+                          AND lavadoras.type = '$tipo_lavadora_req'";
+            
             $resDrivers = $mysqli->query($sqlDrivers);
+            $notificacionesEnviadas = 0;
+            
             while($driver = $resDrivers->fetch_assoc()){
                 if(!empty($driver['fcm'])){
                     enviarNotificacionFCM($driver['fcm'], "Nuevo Servicio", "Hay un nuevo servicio disponible cerca.", $newRentalId, 'new_service_available');
+                    $notificacionesEnviadas++;
                 }
             }
 
@@ -2162,10 +2219,14 @@ function available_machines($mysqli, $data) {
 
 
         // Buscar TODAS las lavadoras disponibles de ese tipo
+        // Solo incluir lavadoras de domiciliarios activos con saldo suficiente
         $query = "SELECT lavadoras.*, usuarios.latitud, usuarios.longitud, usuarios.monedero 
                   FROM lavadoras
                   JOIN usuarios ON lavadoras.id_domiciliario = usuarios.id
-                  WHERE lavadoras.status = 'disponible' AND lavadoras.type = '$tipo' AND usuarios.activo = 1";
+                  WHERE lavadoras.status = 'disponible' 
+                  AND lavadoras.type = '$tipo' 
+                  AND usuarios.activo = 1
+                  AND usuarios.monedero >= $valor_minimo";
                   
      $mysqli->set_charset("utf8mb4");
 
@@ -2173,13 +2234,13 @@ function available_machines($mysqli, $data) {
         $result = $mysqli->query($query);
  
         
-        // Iterar sobre todas las lavadoras candidatas
+        // Iterar sobre todas las lavadoras candidatas (ya filtradas por activo y monedero en SQL)
         while ($lav = $result->fetch_assoc()) {
     
-            // Verificar rango y monedero
+            // Verificar solo el rango de distancia
             $is_in_range = estaDentroDelRango($latitud, $longitud, $lav['latitud'], $lav['longitud'], $km);
           
-            if ($is_in_range && $lav['monedero'] >= $valor_minimo) {
+            if ($is_in_range) {
                 
             
                 // Es válida
