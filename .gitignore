@@ -15,3 +15,12 @@ Thumbs.db
 # Archivos temporales
 *.tmp
 *.log
+
+# Credenciales y archivos sensibles
+firebase-credentials.json
+*-credentials.json
+*.pem
+*.key
+.env
+.env.local
+config/credentials.php
